@@ -1,7 +1,7 @@
 const CACHE_NAME = 'cuponera-cache-v1';
-const OFFLINE_URL = 'offline.html';
+const OFFLINE_URL = './offline.html';
 const STATIC_ASSETS = [
-  '/',
+  './',
   './index.html',
   './offline.html',
   './styles.css',
@@ -25,8 +25,15 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Solo manejar peticiones GET
   if (event.request.method !== 'GET') return;
 
+  const url = new URL(event.request.url);
+
+  // ❌ Evitar cachear recursos de extensiones, archivos locales, etc.
+  if (!url.protocol.startsWith('http')) return;
+
+  // ✅ Manejar peticiones personalizadas de cupones
   if (event.request.url.includes('/cupones/')) {
     event.respondWith(
       caches.open('cupones-guardados').then(cache =>
@@ -41,18 +48,25 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // ✅ Cache-first strategy con validación de respuesta
   event.respondWith(
-    caches.match(event.request).then(cached =>
-      cached || fetch(event.request).then(response =>
-        caches.open(CACHE_NAME).then(cache => {
+    caches.match(event.request).then(cached => {
+      return cached || fetch(event.request).then(response => {
+        // Solo cachear si la respuesta es válida
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
+        return caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, response.clone());
           return response;
-        })
-      )
-    ).catch(() => caches.match(OFFLINE_URL))
+        });
+      });
+    }).catch(() => caches.match(OFFLINE_URL))
   );
 });
 
+// 🎟️ Guardar cupones "localmente" en una caché especial
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SAVE_COUPON') {
     saveCoupon(event.data.payload);
