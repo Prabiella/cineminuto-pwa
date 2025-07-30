@@ -6,6 +6,22 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="stylesheet" href="styles.css" />
+  <!-- Ajustes para IOS -->
+  <!-- Para que funcione como app en iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cuponera">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<!-- Íconos para iOS (usa un PNG cuadrado de al menos 180x180px) -->
+<link rel="apple-touch-icon" href="icon-180.png">
+
+<!-- Splash screen opcional -->
+<!-- link rel="apple-touch-startup-image" href="launch.png" -->
+
+
+
+
+
   <title>Cuponera</title>
 </head>
 <body>
@@ -18,14 +34,19 @@
     </button>
   </div>
 
-  <!-- 🔘 Botón para instalar la app -->
+  <!-- 🔘 Botón para android -->
   <div id="instalar-container" style="margin-top: 20px;">
     <button id="instalarBtn" style="display:none;">Instalar App</button>
   </div>
 
+   <!-- Banner para iOS -->
+   <div id="iosBanner" style="display:none; background: #fffbe6; padding: 10px; border: 1px solid #ccc; margin-top: 20px;">
+    📲 Para instalar esta app en tu iPhone, toca <strong>el botón de compartir</strong> y luego <strong>"Agregar a pantalla de inicio"</strong>.
+  </div>
+
   <script src="app.js"></script>
 
-  <script>
+<!--   <script>
     // 👉 Registrar el Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -65,6 +86,55 @@
       console.log('📲 App instalada');
       document.getElementById('instalarBtn').style.display = 'none';
     });
+  </script> -->
+
+
+
+
+  <script>
+    // Registrar SW
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+
+    // Instalar en Android
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const installBtn = document.getElementById('instalarBtn');
+      installBtn.style.display = 'inline-block';
+
+      installBtn.addEventListener('click', async () => {
+        installBtn.disabled = true;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+
+        if (outcome === 'accepted') {
+          console.log('✅ El usuario aceptó la instalación');
+        } else {
+          console.log('❌ El usuario canceló la instalación');
+        }
+
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('📲 App instalada');
+      document.getElementById('instalarBtn').style.display = 'none';
+    });
+
+    // Mostrar banner de instalación para iOS
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+    if (isIOS && !isInStandaloneMode) {
+      document.getElementById('iosBanner').style.display = 'block';
+    }
   </script>
 </body>
 </html>
