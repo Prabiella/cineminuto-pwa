@@ -2,10 +2,10 @@ const CACHE_NAME = 'cuponera-cache-v1';
 const OFFLINE_URL = 'offline.html';
 const STATIC_ASSETS = [
   '/',
-  'index.html',
-  'offline.html',
-  'styles.css',
-  'app.js',
+  './index.html',
+  './offline.html',
+  './styles.css',
+  './app.js',
 ];
 
 self.addEventListener('install', event => {
