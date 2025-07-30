@@ -17,13 +17,54 @@
       Guardar Cupón
     </button>
   </div>
+
+  <!-- 🔘 Botón para instalar la app -->
+  <div id="instalar-container" style="margin-top: 20px;">
+    <button id="instalarBtn" style="display:none;">Instalar App</button>
+  </div>
+
   <script src="app.js"></script>
+
   <script>
+    // 👉 Registrar el Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js');
       });
     }
+
+    // 👉 Manejar instalación manual de la PWA
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const installBtn = document.getElementById('instalarBtn');
+      installBtn.style.display = 'inline-block';
+
+      installBtn.addEventListener('click', async () => {
+        installBtn.disabled = true;
+
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+
+        if (outcome === 'accepted') {
+          console.log('✅ El usuario aceptó la instalación');
+        } else {
+          console.log('❌ El usuario canceló la instalación');
+        }
+
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+    });
+
+    // 🛑 Ocultar el botón si ya está instalada
+    window.addEventListener('appinstalled', () => {
+      console.log('📲 App instalada');
+      document.getElementById('instalarBtn').style.display = 'none';
+    });
   </script>
 </body>
 </html>
