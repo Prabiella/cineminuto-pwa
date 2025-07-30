@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Cuponera</title>
+</head>
+<body>
+  <h1>Tu Cupón</h1>
+  <div id="cupon">
+    <p><strong>10% OFF</strong> en tu próxima compra.</p>
+    <p>Válido hasta: 31/12/2025</p>
+    <button onclick="guardarCupon({ id: 'cupon123', nombre: '10% OFF', fecha: '2025-12-31' })">
+      Guardar Cupón
+    </button>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</body>
+</html>
