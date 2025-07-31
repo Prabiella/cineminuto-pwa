@@ -17,26 +17,22 @@
 
 <!-- Splash screen opcional -->
 <!-- link rel="apple-touch-startup-image" href="launch.png" -->
-
-
-
-
-
-  <title>Cuponera</title>
+<title>Cuponera</title>
 </head>
 <body>
   <h1>Tu Cupón</h1>
   <div id="cupon">
     <p><strong>10% OFF</strong> en tu próxima compra.</p>
     <p>Válido hasta: 31/12/2025</p>
-    <button onclick="guardarCupon({ id: 'cupon123', nombre: '10% OFF', fecha: '2025-12-31' })">
+    <h3>Cupon: <span id="codigoCupon">X123VG</span></h3>
+ <!--    <button onclick="guardarCupon({ id: 'cupon123', nombre: '10% OFF', fecha: '2025-12-31' })">
       Guardar Cupón
-    </button>
+    </button> -->
   </div>
 
   <!-- 🔘 Botón para android -->
   <div id="instalar-container" style="margin-top: 20px;">
-    <button id="instalarBtn" style="display:none;">Instalar App</button>
+    <button id="instalarBtn" style="display:none;">GUARDAR CUPÓN</button>
   </div>
 
    <!-- Banner para iOS -->
@@ -45,51 +41,6 @@
   </div>
 
   <script src="app.js"></script>
-
-<!--   <script>
-    // 👉 Registrar el Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js');
-      });
-    }
-
-    // 👉 Manejar instalación manual de la PWA
-    let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-
-      const installBtn = document.getElementById('instalarBtn');
-      installBtn.style.display = 'inline-block';
-
-      installBtn.addEventListener('click', async () => {
-        installBtn.disabled = true;
-
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-
-        if (outcome === 'accepted') {
-          console.log('✅ El usuario aceptó la instalación');
-        } else {
-          console.log('❌ El usuario canceló la instalación');
-        }
-
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-      });
-    });
-
-    // 🛑 Ocultar el botón si ya está instalada
-    window.addEventListener('appinstalled', () => {
-      console.log('📲 App instalada');
-      document.getElementById('instalarBtn').style.display = 'none';
-    });
-  </script> -->
-
-
-
 
   <script>
     // Registrar SW
@@ -135,6 +86,10 @@
     if (isIOS && !isInStandaloneMode) {
       document.getElementById('iosBanner').style.display = 'block';
     }
+
+
   </script>
+
+
 </body>
 </html>

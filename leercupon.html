@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redimir Cupón</title>
+</head>
+<body>
+  <h1>Redimir Cupón</h1>
+  <p>Tu cupón guardado es: <span id="mostrarCupon">-</span></p>
+
+  <button id="btnMostrarCupon">Mostrar Cupón</button>
+
+  <script>
+    const mostrarCuponSpan = document.getElementById('mostrarCupon');
+    const btnMostrarCupon = document.getElementById('btnMostrarCupon');
+
+    btnMostrarCupon.addEventListener('click', () => {
+      const cuponGuardado = localStorage.getItem('cuponCodigo');
+
+      if (cuponGuardado) {
+        mostrarCuponSpan.textContent = cuponGuardado;
+      } else {
+        mostrarCuponSpan.textContent = 'No hay cupón guardado';
+      }
+    });
+  </script>
+</body>
+</html>

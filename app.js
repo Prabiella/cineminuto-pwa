@@ -1,11 +1,5 @@
-function guardarCupon(cupon) {
-  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-    navigator.serviceWorker.controller.postMessage({
-      type: 'SAVE_COUPON',
-      payload: cupon
-    });
-    alert("Cupón guardado para uso offline");
-  } else {
-    alert("No se pudo guardar el cupón");
-  }
-}
+window.addEventListener('DOMContentLoaded', () => {
+  const codigo = document.getElementById('codigoCupon').textContent.trim();
+  localStorage.setItem('cuponCodigo', codigo);
+  console.log('Cupón guardado:', codigo);
+});
