@@ -1,20 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 2rem;
-  background: #f4f4f4;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #0f0f0f;
 }
-#cupon {
-  background: white;
-  padding: 1rem;
+
+.cupon {
+  background: #ffffff;
+  color: #2d1a47;
+  text-align: center;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+  width: 70%;
+  max-width: 800px;
+}
+
+.logo {
+  width: 50%;
+  max-width: 300px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 0.5em 0;
 }
-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background-color: #007BFF;
-  color: white;
+
+.cupon p {
+  font-size: min(max(4vw, 1.3em), 1.8em);
+  padding: 0.5em;
+  color: #2d1a47;
+}
+
+.cupon small {
+  font-size: min(max(4vw, 1em), 1.3em);
+  padding-bottom: 1em;
+}
+
+.cupon h3 {
+  font-weight: 600;
+  padding: 1em 0.5em;
+  color: #f36f1e;
+}
+
+#codigoCupon {
+  background: #f5f5f5;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #f36f1e;
+  border: 1px dashed #f36f1e;
+}
+
+.codigo-cupon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  font-size: min(max(4vw, 1.3em), 1.8em);
+}
+
+#instalarBtn {
+  background-color: #f36f1e;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#instalarBtn:hover {
+  background-color: #d85c0d;
+}
+
+#iosBanner {
+  background: #fff8f3;
+  padding: 12px 18px;
+  border: 1px solid #f36f1e;
+  margin-top: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  text-align: center;
+  font-size: 14px;
+  color: #f36f1e;
+}
+
+.circle1, .circle2 {
+  background: #f5f5f5;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.circle1 {
+  left: -25px;
+}
+
+.circle2 {
+  right: -25px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1em;
+  }
+  .cupon {
+    width: 95%;
+  }
+  .logo {
+    width: 70%;
+  }
+  .cupon h3 {
+    padding: 1em 0.5em 0.5em;
+}
 }

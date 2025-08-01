@@ -20,14 +20,15 @@
 <title>Cuponera</title>
 </head>
 <body>
-  <h1>Tu Cupón</h1>
-  <div id="cupon">
+  <div id="cupon" class="cupon">
+    <img src="mvshub-color.svg" class="logo" alt="logo mvshub">
     <p><strong>10% OFF</strong> en tu próxima compra.</p>
-    <p>Válido hasta: 31/12/2025</p>
-    <h3>Cupon: <span id="codigoCupon">X123VG</span></h3>
- <!--    <button onclick="guardarCupon({ id: 'cupon123', nombre: '10% OFF', fecha: '2025-12-31' })">
-      Guardar Cupón
-    </button> -->
+    <small>Válido hasta: 31/12/2025</small>
+    <div class="codigo-cupon">
+      <h3>Cupon:</h3> <span id="codigoCupon">X123VG</span>
+    </div>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
   </div>
 
   <!-- 🔘 Botón para android -->
@@ -37,7 +38,7 @@
 
    <!-- Banner para iOS -->
    <div id="iosBanner" style="display:none; background: #fffbe6; padding: 10px; border: 1px solid #ccc; margin-top: 20px;">
-    📲 Para instalar esta app en tu iPhone, toca <strong>el botón de compartir</strong> y luego <strong>"Agregar a pantalla de inicio"</strong>.
+    📲 Para guardar este cupón en tu iPhone, toca <strong>el botón de compartir</strong> y luego <strong>"Agregar a pantalla de inicio"</strong>.
   </div>
 
   <script src="app.js"></script>
